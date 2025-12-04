@@ -71,6 +71,7 @@
       flex-direction: column;
       gap: 8px;
       box-shadow: 0 5px 14px rgba(0, 0, 0, 0.25);
+      text-align: left;
     }
 
     .lesson-top {
@@ -81,7 +82,6 @@
     }
 
     .lesson-text {
-      text-align: left;
       flex: 1;
       min-width: 0;
     }
@@ -122,6 +122,7 @@
     .audio-wrapper {
       width: 100%;
       display: none; /* hidden until Listen is clicked */
+      margin-top: 4px;
     }
 
     audio {
@@ -137,6 +138,7 @@
       line-height: 1.45;
       color: var(--text-dark);
       padding: 0 8px;
+      text-align: center;
     }
 
     .footer-image {
@@ -219,9 +221,9 @@
             <div class="lesson-title">Pitfalls to Sanctification</div>
             <div class="lesson-date">Date: (add here)</div>
           </div>
-          <button class="listen-btn" data-target="audio-pitfalls-to-sanctification">Listen</button>
+          <button class="listen-btn" data-target="audio-pitfalls">Listen</button>
         </div>
-        <div class="audio-wrapper" id="audio-pitfalls-to-sanctification">
+        <div class="audio-wrapper" id="audio-pitfalls">
           <audio controls preload="metadata">
             <source src="pitfalls-to-sanctification.m4a" type="audio/mp4">
             Your browser does not support the audio element.
@@ -236,9 +238,9 @@
             <div class="lesson-title">Patience on the Path of Sanctification</div>
             <div class="lesson-date">Date: (add here)</div>
           </div>
-          <button class="listen-btn" data-target="audio-patience-on-the-path">Listen</button>
+          <button class="listen-btn" data-target="audio-patience">Listen</button>
         </div>
-        <div class="audio-wrapper" id="audio-patience-on-the-path">
+        <div class="audio-wrapper" id="audio-patience">
           <audio controls preload="metadata">
             <source src="patience-on-the-path-of-sanctification.m4a" type="audio/mp4">
             Your browser does not support the audio element.
@@ -253,9 +255,9 @@
             <div class="lesson-title">Jesus, Our Life and Our Example</div>
             <div class="lesson-date">Date: (add here)</div>
           </div>
-          <button class="listen-btn" data-target="audio-jesus-our-life-and-our-example">Listen</button>
+          <button class="listen-btn" data-target="audio-jesus">Listen</button>
         </div>
-        <div class="audio-wrapper" id="audio-jesus-our-life-and-our-example">
+        <div class="audio-wrapper" id="audio-jesus">
           <audio controls preload="metadata">
             <source src="jesus-our-life-and-our-example.m4a" type="audio/mp4">
             Your browser does not support the audio element.
@@ -270,9 +272,9 @@
             <div class="lesson-title">A Secure Connection</div>
             <div class="lesson-date">Date: (add here)</div>
           </div>
-          <button class="listen-btn" data-target="audio-a-secure-connection">Listen</button>
+          <button class="listen-btn" data-target="audio-secure1">Listen</button>
         </div>
-        <div class="audio-wrapper" id="audio-a-secure-connection">
+        <div class="audio-wrapper" id="audio-secure1">
           <audio controls preload="metadata">
             <source src="a-secure-connection.m4a" type="audio/mp4">
             Your browser does not support the audio element.
@@ -287,9 +289,9 @@
             <div class="lesson-title">A Secure Connection Part 2</div>
             <div class="lesson-date">Date: (add here)</div>
           </div>
-          <button class="listen-btn" data-target="audio-a-secure-connection-part2">Listen</button>
+          <button class="listen-btn" data-target="audio-secure2">Listen</button>
         </div>
-        <div class="audio-wrapper" id="audio-a-secure-connection-part2">
+        <div class="audio-wrapper" id="audio-secure2">
           <audio controls preload="metadata">
             <source src="a-secure-connection-part2.m4a" type="audio/mp4">
             Your browser does not support the audio element.
@@ -351,7 +353,7 @@
     </div>
 
     <p class="footer-note">
-      Please note, after clicking “play,” there will be a short delay before the lesson begins.
+      Please note, after clicking “Listen,” there may be a short delay before the lesson begins.
     </p>
 
     <img src="butterfly.png" alt="Butterfly" class="footer-image" />
@@ -367,12 +369,7 @@
           const wrapper = document.getElementById(targetId);
           if (wrapper) {
             wrapper.style.display = "block";
-            const audioEl = wrapper.querySelector("audio");
-            if (audioEl) {
-              audioEl.play().catch(function () {
-                /* autoplay might be blocked; ignore */
-              });
-            }
+            // We do NOT auto-play – user will press play in the audio bar.
           }
           btn.style.display = "none";
         });
