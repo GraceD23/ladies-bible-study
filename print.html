@@ -64,7 +64,7 @@
   <script>
     (function () {
       const params = new URLSearchParams(window.location.search);
-      const fileName = params.get("file");
+      const fileName = params.get("file") || "";
       const card = document.getElementById("statusCard");
 
       if (!fileName) {
@@ -80,10 +80,14 @@
 
       if (isIOS && (isIOSChrome || isGoogleApp)) {
         // In the Google app / Chrome on iOS, auto-print is unreliable.
-        // Instead: just open the PDF, user can print via Share/Print, and we still show the return button.
+        // Instead: just open the PDF; user can print via Share/Print.
         window.location.href = fileName;
         return;
       }
+
+      // Determine delay: longer for charts.pdf, shorter for all others
+      const isCharts = fileName.toLowerCase() === "charts.pdf";
+      const delayMs = isCharts ? 2000 : 700;
 
       // For Safari on iOS and desktop browsers: use iframe + auto print
       const iframe = document.createElement("iframe");
@@ -104,7 +108,7 @@
             // If print() is blocked, fall back to just opening the PDF
             window.location.href = fileName;
           }
-        }, 700);
+        }, delayMs);
       };
 
       document.body.appendChild(iframe);
