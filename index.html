@@ -1,383 +1,519 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LADIES BIBLE STUDY</title>
-
-  <!-- Google Font: Poppins -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg-light-blue: #95ccf0;
-      --card-blue: #0050A0;
-      --text-dark: #003766;
-      --white: #ffffff;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: "Poppins", sans-serif;
-      background-color: var(--bg-light-blue);
-      color: var(--text-dark);
-      display: flex;
-      justify-content: center;
-      padding: 26px 9px 55px;
-    }
-
-    .page-wrapper {
-      width: 100%;
-      max-width: 360px; /* 20% smaller layout */
-      text-align: center;
-    }
-
-    .page-title {
-      font-size: 1.95rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      margin-bottom: 12px;
-    }
-
-    .intro-wrapper {
-      margin: 0 auto 20px auto;
-    }
-
-    .intro-text {
-      font-size: 0.86rem;
-      font-weight: 600; /* semi-bold */
-      line-height: 1.55;
-    }
-
-    .lessons-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 10px;
-    }
-
-    .lesson-card {
-      background: var(--card-blue);
-      border-radius: 18px;
-      padding: 10px 12px 10px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.25);
-      text-align: left;
-    }
-
-    .lesson-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .lesson-text {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .lesson-title {
-      color: var(--white);
-      font-weight: 600;
-      font-size: 0.86rem;
-      margin-bottom: 3px;
-    }
-
-    .lesson-date {
-      color: rgba(255, 255, 255, 0.9);
-      font-weight: 500;
-      font-size: 0.65rem;
-    }
-
-    .listen-btn {
-      flex-shrink: 0;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: var(--white);
-      border: none;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      text-decoration: none;
-      display: inline-block;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .listen-btn:active {
-      transform: translateY(1px);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-
-    .audio-wrapper {
-      width: 100%;
-      display: none; /* hidden until Listen is clicked */
-      margin-top: 4px;
-    }
-
-    audio {
-      width: 100%;
-      height: 32px;
-      outline: none;
-    }
-
-    .footer-note {
-      font-size: 0.8rem;
-      font-weight: 600; /* semi-bold */
-      margin-top: 22px;
-      line-height: 1.45;
-      color: var(--text-dark);
-      padding: 0 8px;
-      text-align: center;
-    }
-
-    .footer-image {
-      margin-top: 22px;
-      width: 150px;
-      max-width: 70%;
-      border-radius: 14px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-    }
-  </style>
-</head>
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+ <meta charset="UTF-8" /> 
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />  <title>LADIES BIBLE STUDY</title> 
+ <!-- Google Font: Poppins --> 
+ <link rel="preconnect" href="https://fonts.googleapis.com" /> 
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> 
+ <link 
+ href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"  rel="stylesheet" 
+ /> 
+ <style> 
+ :root { 
+ --bg: #95ccf0; 
+ --card: #0050a0; 
+ --card-charts: #3a7ccf; 
+ --text-main: #003766; 
+ --white: #ffffff; 
+ } 
+ *, 
+ *::before, 
+ *::after { 
+ box-sizing: border-box; 
+ } 
+ body { 
+ margin: 0; 
+ padding: 0; 
+ min-height: 100vh; 
+ font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,  "Segoe UI", sans-serif; 
+ background-color: var(--bg); 
+ color: var(--text-main); 
+ display: flex; 
+ flex-direction: column; 
+ align-items: center; 
+ } 
+ .page-wrapper { 
+ width: 100%; 
+ max-width: 520px; 
+ padding: 32px 16px 40px; 
+ } 
+ h1.page-title { 
+ margin: 0 0 10px; 
+ text-align: center; 
+ font-size: 28px; 
+ font-weight: 800; /* bold header */ 
+ letter-spacing: 0.18em; 
+ color: var(--text-main); 
+ } 
+ .intro-text { 
+ margin: 0 0 24px; 
+ text-align: center; 
+ font-size: 15px; 
+ font-weight: 600; /* bold description */ 
+ line-height: 1.6; 
+ max-width: 420px; 
+ margin-left: auto; 
+ margin-right: auto; 
+ } 
+ .lessons-wrapper {
+ display: flex; 
+ flex-direction: column; 
+ gap: 12px; 
+ } 
+ .lesson-card { 
+ background: var(--card); 
+ color: var(--white); 
+ border-radius: 22px; 
+ padding: 12px 16px; 
+ margin: 0 auto; 
+ width: 100%; 
+ max-width: 520px; 
+ display: flex; 
+ flex-direction: column; 
+ gap: 6px; 
+ } 
+ /* Charts card: same shape/width, lighter blue */  .lesson-card.charts-card { 
+ background: var(--card-charts); 
+ } 
+ .lesson-main { 
+ display: flex; 
+ align-items: stretch; 
+ justify-content: space-between; 
+ gap: 10px; 
+ } 
+ .lesson-text-block { 
+ display: flex; 
+ flex-direction: column; 
+ gap: 3px; 
+ min-width: 0; 
+ } 
+ .lesson-title { 
+ font-size: 15px; 
+ font-weight: 700; /* bold titles */  line-height: 1.4; 
+ word-wrap: break-word; 
+ } 
+ .lesson-date { 
+ font-size: 12px; 
+ font-weight: 500; 
+ opacity: 0.9; 
+ } 
+ .button-column { 
+ display: flex; 
+ flex-direction: column; 
+ justify-content: center; 
+ gap: 6px; 
+ min-width: 86px; 
+ } 
+ .button-column.single { 
+ justify-content: center; 
+ } 
+ .pill-button { 
+ border-radius: 999px; 
+ border: none; 
+ background: var(--white); 
+ color: var(--card); 
+ padding: 6px 16px; 
+ font-size: 12px; 
+ font-weight: 500;
+ cursor: pointer; 
+ display: inline-flex; 
+ align-items: center; 
+ justify-content: center; 
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);  white-space: nowrap; 
+ min-width: 72px; 
+ } 
+ .pill-button:active { 
+ transform: translateY(1px); 
+ box-shadow: none; 
+ } 
+ .audio-wrapper { 
+ display: none; 
+ margin-top: 4px; 
+ } 
+ .lesson-card.is-playing .audio-wrapper {  display: block; 
+ } 
+ audio { 
+ width: 100%; 
+ margin-top: 2px; 
+ } 
+ .note-card { 
+ margin-top: 18px; 
+ background: transparent; 
+ color: var(--text-main); 
+ border-radius: 0; 
+ padding: 0; 
+ font-size: 12px; 
+ font-weight: 500; 
+ line-height: 1.5; 
+ text-align: center; 
+ } 
+ .footer-image-wrap { 
+ margin-top: 26px; 
+ display: flex; 
+ justify-content: center; 
+ } 
+ .footer-image { 
+ max-width: 120px; 
+ width: 40vw; 
+ height: auto; 
+ display: block; 
+ } 
+ @media (min-width: 600px) { 
+ .page-wrapper { 
+ padding-top: 40px; 
+ } 
+ h1.page-title { 
+ font-size: 30px; 
+ } 
+ .intro-text { 
+ font-size: 16px; 
+ } 
+ } 
+ </style> 
+</head> 
 <body>
-
-  <div class="page-wrapper">
-    <h1 class="page-title">LADIES BIBLE STUDY</h1>
-
-    <div class="intro-wrapper">
-      <p class="intro-text">
-        Welcome to Ladies Bible Study! Below you will have access to previous lessons with new lessons added weekly.
-      </p>
-    </div>
-
-    <div class="lessons-wrapper">
-
-      <!-- 1. What Are You Going to Do With Your Soul? Part 1 -->
-      <div class="lesson-card">
-        <div class="lesson-top">
-          <div class="lesson-text">
-            <div class="lesson-title">What Are You Going to Do With Your Soul? Part 1</div>
-            <div class="lesson-date">September 9, 2025</div>
-          </div>
-          <button class="listen-btn" data-target="audio-soul-part1">Listen</button>
-        </div>
-        <div class="audio-wrapper" id="audio-soul-part1">
-          <audio controls preload="metadata">
-            <source src="what-are-you-going-to-do-with-your-soul-part1.m4a" type="audio/mp4">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      </div>
-
-      <!-- 2. What Are You Going to Do With Your Soul? Part 2 -->
-      <div class="lesson-card">
-        <div class="lesson-top">
-          <div class="lesson-text">
-            <div class="lesson-title">What Are You Going to Do With Your Soul? Part 2</div>
-            <div class="lesson-date">September 16, 2025</div>
-          </div>
-          <button class="listen-btn" data-target="audio-soul-part2">Listen</button>
-        </div>
-        <div class="audio-wrapper" id="audio-soul-part2">
-          <audio controls preload="metadata">
-            <source src="what-are-you-going-to-do-with-your-soul-part2.m4a" type="audio/mp4">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      </div>
-
-      <!-- 3. What Are You Going to Do With Your Soul? Part 3 -->
-      <div class="lesson-card">
-        <div class="lesson-top">
-          <div class="lesson-text">
-            <div class="lesson-title">What Are You Going to Do With Your Soul? Part 3</div>
-            <div class="lesson-date">September 23, 2025</div>
-          </div>
-          <button class="listen-btn" data-target="audio-soul-part3">Listen</button>
-        </div>
-        <div class="audio-wrapper" id="audio-soul-part3">
-          <audio controls preload="metadata">
-            <source src="what-are-you-going-to-do-with-your-soul-part3.m4a" type="audio/mp4">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      </div>
-
-      <!-- 4. Pitfalls to Sanctification -->
-      <div class="lesson-card">
-        <div class="lesson-top">
-          <div class="lesson-text">
-            <div class="lesson-title">Pitfalls to Sanctification</div>
-            <div class="lesson-date">September 30, 2025</div>
-          </div>
-          <button class="listen-btn" data-target="audio-pitfalls">Listen</button>
-        </div>
-        <div class="audio-wrapper" id="audio-pitfalls">
-          <audio controls preload="metadata">
-            <source src="pitfalls-to-sanctification.m4a" type="audio/mp4">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      </div>
-
-      <!-- 5. Patience on the Path of Sanctification -->
-      <div class="lesson-card">
-        <div class="lesson-top">
-          <div class="lesson-text">
-            <div class="lesson-title">Patience on the Path of Sanctification</div>
-            <div class="lesson-date">October 7, 2025</div>
-          </div>
-          <button class="listen-btn" data-target="audio-patience">Listen</button>
-        </div>
-        <div class="audio-wrapper" id="audio-patience">
-          <audio controls preload="metadata">
-            <source src="patience-on-the-path-of-sanctification.m4a" type="audio/mp4">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      </div>
-
-      <!-- 6. Jesus, Our Life and Our Example -->
-      <div class="lesson-card">
-        <div class="lesson-top">
-          <div class="lesson-text">
-            <div class="lesson-title">Jesus, Our Life and Our Example</div>
-            <div class="lesson-date">October 14, 2025</div>
-          </div>
-          <button class="listen-btn" data-target="audio-jesus">Listen</button>
-        </div>
-        <div class="audio-wrapper" id="audio-jesus">
-          <audio controls preload="metadata">
-            <source src="jesus-our-life-and-our-example.m4a" type="audio/mp4">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      </div>
-
-      <!-- 7. A Secure Connection -->
-      <div class="lesson-card">
-        <div class="lesson-top">
-          <div class="lesson-text">
-            <div class="lesson-title">A Secure Connection</div>
-            <div class="lesson-date">October 21, 2025</div>
-          </div>
-          <button class="listen-btn" data-target="audio-secure1">Listen</button>
-        </div>
-        <div class="audio-wrapper" id="audio-secure1">
-          <audio controls preload="metadata">
-            <source src="a-secure-connection.m4a" type="audio/mp4">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      </div>
-
-      <!-- 8. A Secure Connection Part 2 -->
-      <div class="lesson-card">
-        <div class="lesson-top">
-          <div class="lesson-text">
-            <div class="lesson-title">A Secure Connection Part 2</div>
-            <div class="lesson-date">October 28, 2025</div>
-          </div>
-          <button class="listen-btn" data-target="audio-secure2">Listen</button>
-        </div>
-        <div class="audio-wrapper" id="audio-secure2">
-          <audio controls preload="metadata">
-            <source src="a-secure-connection-part2.m4a" type="audio/mp4">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      </div>
-
-      <!-- 9. In Heavenly Places in Christ Jesus Part 1 -->
-      <div class="lesson-card">
-        <div class="lesson-top">
-          <div class="lesson-text">
-            <div class="lesson-title">In Heavenly Places in Christ Jesus Part 1</div>
-            <div class="lesson-date">November 3, 2025</div>
-          </div>
-          <button class="listen-btn" data-target="audio-heaven1">Listen</button>
-        </div>
-        <div class="audio-wrapper" id="audio-heaven1">
-          <audio controls preload="metadata">
-            <source src="in-heavenly-places-in-christ-jesus-part1.m4a" type="audio/mp4">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      </div>
-
-      <!-- 10. In Heavenly Places in Christ Jesus Part 2 -->
-      <div class="lesson-card">
-        <div class="lesson-top">
-          <div class="lesson-text">
-            <div class="lesson-title">In Heavenly Places in Christ Jesus Part 2</div>
-            <div class="lesson-date">November 11, 2025</div>
-          </div>
-          <button class="listen-btn" data-target="audio-heaven2">Listen</button>
-        </div>
-        <div class="audio-wrapper" id="audio-heaven2">
-          <audio controls preload="metadata">
-            <source src="in-heavenly-places-in-christ-jesus-part2.m4a" type="audio/mp4">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      </div>
-
-      <!-- 11. In Heavenly Places in Christ Jesus Part 3 -->
-      <div class="lesson-card">
-        <div class="lesson-top">
-          <div class="lesson-text">
-            <div class="lesson-title">In Heavenly Places in Christ Jesus Part 3</div>
-            <div class="lesson-date">December 2, 2025</div>
-          </div>
-          <button class="listen-btn" data-target="audio-heaven3">Listen</button>
-        </div>
-        <div class="audio-wrapper" id="audio-heaven3">
-          <audio controls preload="metadata">
-            <source src="in-heavenly-places-in-christ-jesus-part3.m4a" type="audio/mp4">
-            Your browser does not support the audio element.
-          </audio>
-        </div>
-      </div>
-
-    </div>
-
-    <p class="footer-note">
-      Please note, after clicking “Listen,” there may be a short delay before the lesson begins.
-    </p>
-
-    <img src="butterfly.png" alt="Butterfly" class="footer-image" />
-
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const buttons = document.querySelectorAll(".listen-btn");
-      buttons.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          const targetId = btn.getAttribute("data-target");
-          const wrapper = document.getElementById(targetId);
-          if (wrapper) {
-            wrapper.style.display = "block";
-            // We do NOT auto-play – user will press play in the audio bar.
-          }
-          btn.style.display = "none";
-        });
-      });
-    });
-  </script>
-
-</body>
+ <div class="page-wrapper"> 
+ <h1 class="page-title">LADIES BIBLE STUDY</h1> 
+ <p class="intro-text"> 
+ Welcome to Ladies Bible Study! Below you will have access to previous  lessons with new lessons added weekly. 
+ </p> 
+ <div class="lessons-wrapper"> 
+ <!-- 1. Soul Part 1 --> 
+ <div class="lesson-card" id="lesson-soul-part1"> 
+ <div class="lesson-main"> 
+ <div class="lesson-text-block"> 
+ <div class="lesson-title"> 
+ What Are You Going to Do With Your Soul? &ndash; Part 1  </div> 
+ <div class="lesson-date">September 9, 2025</div>  </div> 
+ <div class="button-column"> 
+ <button 
+ class="pill-button print-btn" 
+ onclick="printPDF('soul-part1-notes.pdf')" 
+ > 
+ Print 
+ </button> 
+ <button 
+ class="pill-button listen-btn" 
+ data-target="lesson-soul-part1" 
+ > 
+ Listen 
+ </button> 
+ </div> 
+ </div> 
+ <div class="audio-wrapper"> 
+ <audio 
+ class="lesson-audio" 
+ src="what-are-you-going-to-do-with-your-soul-part1.m4a"  controls 
+ ></audio> 
+ </div> 
+ </div> 
+ <!-- 2. Soul Part 2 --> 
+ <div class="lesson-card" id="lesson-soul-part2"> 
+ <div class="lesson-main"> 
+ <div class="lesson-text-block"> 
+ <div class="lesson-title"> 
+ What Are You Going to Do With Your Soul? &ndash; Part 2  </div> 
+ <div class="lesson-date">September 16, 2025</div>  </div> 
+ <div class="button-column"> 
+ <button 
+ class="pill-button print-btn" 
+ onclick="printPDF('soul-part2-notes.pdf')" 
+ > 
+ Print 
+ </button> 
+ <button 
+ class="pill-button listen-btn" 
+ data-target="lesson-soul-part2" 
+ > 
+ Listen 
+ </button> 
+ </div> 
+ </div> 
+ <div class="audio-wrapper"> 
+ <audio 
+ class="lesson-audio" 
+ src="what-are-you-going-to-do-with-your-soul-part2.m4a"
+ controls 
+ ></audio> 
+ </div> 
+ </div> 
+ <!-- 3. Soul Part 3 (no PDF) --> 
+ <div class="lesson-card" id="lesson-soul-part3"> 
+ <div class="lesson-main"> 
+ <div class="lesson-text-block"> 
+ <div class="lesson-title"> 
+ What Are You Going to Do With Your Soul? &ndash; Part 3  </div> 
+ <div class="lesson-date">September 23, 2025</div> 
+ </div> 
+ <div class="button-column single"> 
+ <button 
+ class="pill-button listen-btn" 
+ data-target="lesson-soul-part3" 
+ > 
+ Listen 
+ </button> 
+ </div> 
+ </div> 
+ <div class="audio-wrapper"> 
+ <audio 
+ class="lesson-audio" 
+ src="what-are-you-going-to-do-with-your-soul-part3.m4a"  controls 
+ ></audio> 
+ </div> 
+ </div> 
+ <!-- 4. Pitfalls (no PDF) --> 
+ <div class="lesson-card" id="lesson-pitfalls"> 
+ <div class="lesson-main"> 
+ <div class="lesson-text-block"> 
+ <div class="lesson-title">Pitfalls to Sanctification</div>  <div class="lesson-date">September 30, 2025</div> 
+ </div> 
+ <div class="button-column single"> 
+ <button 
+ class="pill-button listen-btn" 
+ data-target="lesson-pitfalls" 
+ > 
+ Listen 
+ </button> 
+ </div> 
+ </div> 
+ <div class="audio-wrapper"> 
+ <audio 
+ class="lesson-audio" 
+ src="pitfalls-to-sanctification.m4a" 
+ controls 
+ ></audio> 
+ </div> 
+ </div> 
+ <!-- 5. Patience --> 
+ <div class="lesson-card" id="lesson-patience"> 
+ <div class="lesson-main"> 
+ <div class="lesson-text-block"> 
+ <div class="lesson-title">Patience on the Path of Sanctification</div>  <div class="lesson-date">October 7, 2025</div> 
+ </div> 
+ <div class="button-column"> 
+ <button class="pill-button print-btn" onclick="printPDF('path.pdf')">  Print 
+ </button> 
+ <button 
+ class="pill-button listen-btn"
+ data-target="lesson-patience" 
+ > 
+ Listen 
+ </button> 
+ </div> 
+ </div> 
+ <div class="audio-wrapper"> 
+ <audio 
+ class="lesson-audio" 
+ src="patience-on-the-path-of-sanctification.m4a"  controls 
+ ></audio> 
+ </div> 
+ </div> 
+ <!-- 6. Jesus Example --> 
+ <div class="lesson-card" id="lesson-jesus-example">  <div class="lesson-main"> 
+ <div class="lesson-text-block"> 
+ <div class="lesson-title">Jesus, Our Life and Our Example</div>  <div class="lesson-date">October 14, 2025</div>  </div> 
+ <div class="button-column"> 
+ <button 
+ class="pill-button print-btn" 
+ onclick="printPDF('jesus-example.pdf')" 
+ > 
+ Print 
+ </button> 
+ <button 
+ class="pill-button listen-btn" 
+ data-target="lesson-jesus-example" 
+ > 
+ Listen 
+ </button> 
+ </div> 
+ </div> 
+ <div class="audio-wrapper"> 
+ <audio 
+ class="lesson-audio" 
+ src="jesus-our-life-and-our-example.m4a" 
+ controls 
+ ></audio> 
+ </div> 
+ </div> 
+ <!-- 7. A Secure Connection (no PDF) --> 
+ <div class="lesson-card" id="lesson-secure-connection">  <div class="lesson-main"> 
+ <div class="lesson-text-block"> 
+ <div class="lesson-title">A Secure Connection</div>  <div class="lesson-date">October 21, 2025</div>  </div> 
+ <div class="button-column single"> 
+ <button 
+ class="pill-button listen-btn" 
+ data-target="lesson-secure-connection" 
+ > 
+ Listen 
+ </button> 
+ </div> 
+ </div> 
+ <div class="audio-wrapper"> 
+ <audio 
+ class="lesson-audio" 
+ src="a-secure-connection.m4a" 
+ controls 
+ ></audio> 
+ </div> 
+ </div>
+ <!-- 8. A Secure Connection Part 2 (no PDF) --> 
+ <div class="lesson-card" id="lesson-secure-connection-part2">  <div class="lesson-main"> 
+ <div class="lesson-text-block"> 
+ <div class="lesson-title">A Secure Connection &ndash; Part 2</div>  <div class="lesson-date">October 28, 2025</div>  </div> 
+ <div class="button-column single"> 
+ <button 
+ class="pill-button listen-btn" 
+ data-target="lesson-secure-connection-part2" 
+ > 
+ Listen 
+ </button> 
+ </div> 
+ </div> 
+ <div class="audio-wrapper"> 
+ <audio 
+ class="lesson-audio" 
+ src="a-secure-connection-part2.m4a" 
+ controls 
+ ></audio> 
+ </div> 
+ </div> 
+ <!-- 9. In Heavenly Places Part 1 --> 
+ <div class="lesson-card" id="lesson-heavenly-part1"> 
+ <div class="lesson-main"> 
+ <div class="lesson-text-block"> 
+ <div class="lesson-title"> 
+ In Heavenly Places in Christ Jesus &ndash; Part 1  </div> 
+ <div class="lesson-date">November 3, 2025</div>  </div> 
+ <div class="button-column"> 
+ <button 
+ class="pill-button print-btn" 
+ onclick="printPDF('heavenly-places-part1.pdf')"  > 
+ Print 
+ </button> 
+ <button 
+ class="pill-button listen-btn" 
+ data-target="lesson-heavenly-part1" 
+ > 
+ Listen 
+ </button> 
+ </div> 
+ </div> 
+ <div class="audio-wrapper"> 
+ <audio 
+ class="lesson-audio" 
+ src="in-heavenly-places-in-christ-jesus-part1.m4a"  controls 
+ ></audio> 
+ </div> 
+ </div> 
+ <!-- 10. In Heavenly Places Part 2 --> 
+ <div class="lesson-card" id="lesson-heavenly-part2"> 
+ <div class="lesson-main"> 
+ <div class="lesson-text-block"> 
+ <div class="lesson-title"> 
+ In Heavenly Places in Christ Jesus &ndash; Part 2  </div> 
+ <div class="lesson-date">November 11, 2025</div>  </div> 
+ <div class="button-column"> 
+ <button 
+ class="pill-button print-btn"
+ onclick="printPDF('heavenly-places-part2.pdf')"  > 
+ Print 
+ </button> 
+ <button 
+ class="pill-button listen-btn" 
+ data-target="lesson-heavenly-part2" 
+ > 
+ Listen 
+ </button> 
+ </div> 
+ </div> 
+ <div class="audio-wrapper"> 
+ <audio 
+ class="lesson-audio" 
+ src="in-heavenly-places-in-christ-jesus-part2.m4a"  controls 
+ ></audio> 
+ </div> 
+ </div> 
+ <!-- 11. In Heavenly Places Part 3 (no PDF) --> 
+ <div class="lesson-card" id="lesson-heavenly-part3">  <div class="lesson-main"> 
+ <div class="lesson-text-block"> 
+ <div class="lesson-title"> 
+ In Heavenly Places in Christ Jesus &ndash; Part 3  </div> 
+ <div class="lesson-date">December 2, 2025</div>  </div> 
+ <div class="button-column single"> 
+ <button 
+ class="pill-button listen-btn" 
+ data-target="lesson-heavenly-part3" 
+ > 
+ Listen 
+ </button> 
+ </div> 
+ </div> 
+ <div class="audio-wrapper"> 
+ <audio 
+ class="lesson-audio" 
+ src="in-heavenly-places-in-christ-jesus-part3.m4a"  controls 
+ ></audio> 
+ </div> 
+ </div> 
+ <!-- 12. Charts (Print only, no date) --> 
+ <div class="lesson-card charts-card" id="lesson-charts">  <div class="lesson-main"> 
+ <div class="lesson-text-block"> 
+ <div class="lesson-title">Charts</div> 
+ </div> 
+ <div class="button-column single"> 
+ <button 
+ class="pill-button print-btn" 
+ onclick="printPDF('charts.pdf')" 
+ > 
+ Print 
+ </button> 
+ </div> 
+ </div> 
+ </div> 
+ </div> 
+ <div class="note-card"> 
+ Please note, after clicking "play," there will be a short delay before  the lesson begins. 
+ </div>
+ <div class="footer-image-wrap"> 
+ <img 
+ src="butterfly.png" 
+ alt="Butterfly" 
+ class="footer-image" 
+ /> 
+ </div> 
+ </div> 
+ <script> 
+ // Handle Listen buttons: autoplay and only one audio at a time  const listenButtons = document.querySelectorAll(".listen-btn");  const audioElements = document.querySelectorAll(".lesson-audio"); 
+ listenButtons.forEach((button) => { 
+ button.addEventListener("click", () => { 
+ const targetId = button.getAttribute("data-target");  const card = document.getElementById(targetId); 
+ const audio = card.querySelector(".lesson-audio"); 
+ // Pause and reset all audio 
+ audioElements.forEach((a) => { 
+ a.pause(); 
+ a.currentTime = 0; 
+ const parentCard = a.closest(".lesson-card"); 
+ if (parentCard) { 
+ parentCard.classList.remove("is-playing"); 
+ } 
+ }); 
+ // Mark this card as active and try to play 
+ card.classList.add("is-playing"); 
+ if (audio) { 
+ audio 
+ .play() 
+ .catch(() => { 
+ // Autoplay might be blocked; user can press play manually.  }); 
+ } 
+ }); 
+ }); 
+ // Print helper 
+ function printPDF(fileName) { 
+ if (!fileName) return; 
+ window.location.href = "print.html?file=" + encodeURIComponent(fileName);  } 
+ </script> 
+</body> 
 </html>
 
 
