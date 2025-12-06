@@ -44,7 +44,10 @@
         return;
       }
 
-      // Create a hidden iframe that loads the PDF, then trigger print
+      // Create a hidden iframe that loads the PDF, then trigger print.
+      // We add a small delay after onload to help iOS Safari finish rendering
+      // before print() is called, which reduces the 'page did not finish loading'
+      // warning.
       const iframe = document.createElement("iframe");
       iframe.style.position = "fixed";
       iframe.style.right = "0";
@@ -55,14 +58,15 @@
       iframe.src = fileName;
 
       iframe.onload = function() {
-        try {
-          // Focus and print the PDF from inside the iframe
-          iframe.contentWindow.focus();
-          iframe.contentWindow.print();
-        } catch (e) {
-          // If the browser blocks it, at least navigate to the PDF
-          window.location.href = fileName;
-        }
+        setTimeout(function() {
+          try {
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+          } catch (e) {
+            // If the browser blocks it, fall back to just opening the PDF
+            window.location.href = fileName;
+          }
+        }, 700); // small delay helps on iPhone
       };
 
       document.body.appendChild(iframe);
