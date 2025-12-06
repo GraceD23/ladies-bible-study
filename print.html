@@ -57,23 +57,36 @@
 <body>
   <div class="card" id="statusCard">
     <h1>Preparing to Print…</h1>
-    <p>Your notes are loading.</p>
-    <p>If nothing appears, please check your browser's pop‑up or print settings.</p>
+    <p>Your notes are loading and the print dialog will appear shortly (in supported browsers).</p>
+    <p>You can return to the Ladies Bible Study site at any time:</p>
+    <a class="btn" href="https://tuesdaysbiblestudy.com">Return to Website</a>
   </div>
 
   <script>
     (function () {
       const params = new URLSearchParams(window.location.search);
       const fileName = params.get("file");
-
       const card = document.getElementById("statusCard");
 
       if (!fileName) {
-        card.innerHTML = "<h1>Oops</h1><p>No file was specified to print.</p>";
+        card.innerHTML = "<h1>Oops</h1><p>No file was specified to print.</p><a class='btn' href='https://tuesdaysbiblestudy.com'>Return to Website</a>";
         return;
       }
 
-      // Create a hidden iframe to load the PDF
+      // Detect iOS + Google app / Chrome app
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      const isIOS = /iPad|iPhone|iPod/.test(ua);
+      const isIOSChrome = /CriOS/i.test(ua); // Chrome on iOS
+      const isGoogleApp = /GSA/i.test(ua);   // Google Search app
+
+      if (isIOS && (isIOSChrome || isGoogleApp)) {
+        // In the Google app / Chrome on iOS, auto-print is unreliable.
+        // Instead: just open the PDF, user can print via Share/Print, and we still show the return button.
+        window.location.href = fileName;
+        return;
+      }
+
+      // For Safari on iOS and desktop browsers: use iframe + auto print
       const iframe = document.createElement("iframe");
       iframe.style.position = "fixed";
       iframe.style.right = "0";
@@ -84,24 +97,14 @@
       iframe.src = fileName;
 
       iframe.onload = function () {
-        // Give the browser (especially iOS Safari) a moment to finish rendering
         setTimeout(function () {
           try {
             iframe.contentWindow.focus();
             iframe.contentWindow.print();
           } catch (e) {
-            // If print() is blocked, just navigate directly to the PDF
+            // If print() is blocked, fall back to just opening the PDF
             window.location.href = fileName;
-            return;
           }
-
-          // When print dialog is closed, execution continues here.
-          // We can't detect Print vs Cancel, so we show a "Return" button.
-          card.innerHTML = `
-            <h1>Printing Complete</h1>
-            <p>You can now return to the Ladies Bible Study site.</p>
-            <a class="btn" href="https://tuesdaysbiblestudy.com">Return to Website</a>
-          `;
         }, 700);
       };
 
