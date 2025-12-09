@@ -72,22 +72,22 @@
         return;
       }
 
-      // Detect iOS (Safari, Chrome, Google app – all WebKit)
+      // Detect iOS devices (iPhone / iPad) – all browsers on iOS use WebKit.
       const ua = navigator.userAgent || navigator.vendor || window.opera;
       const isIOS = /iPad|iPhone|iPod/.test(ua);
 
-      // Check if this is the Charts PDF
-      const isCharts = fileName.toLowerCase() === "charts.pdf";
-
-      if (isIOS && isCharts) {
-        // Special case: on iPhone/iPad for charts.pdf,
-        // do NOT auto-print – just open the PDF so all 4 pages are visible.
+      if (isIOS) {
+        // iPhone / iPad:
+        // This page (print.html) should already be in its OWN TAB
+        // because index.html should call window.open(..., "_blank").
+        // Here we simply navigate THIS tab to the PDF so all pages show,
+        // and the main site tab stays open.
         window.location.href = fileName;
         return;
       }
 
-      // For everything else (all devices, all other PDFs):
-      // use iframe + auto print
+      // Non‑iOS (Windows, Mac, Android):
+      // Keep previous behavior – auto print via hidden iframe.
       const iframe = document.createElement("iframe");
       iframe.style.position = "fixed";
       iframe.style.right = "0";
@@ -103,7 +103,7 @@
             iframe.contentWindow.focus();
             iframe.contentWindow.print();
           } catch (e) {
-            // If print() is blocked, fall back to just opening the PDF
+            // If print() is blocked, fall back to opening the PDF.
             window.location.href = fileName;
           }
         }, 700);
