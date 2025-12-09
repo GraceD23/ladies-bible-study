@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Printing…</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f2f2f2;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      background: #ffffff;
+      padding: 22px 26px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+      max-width: 340px;
+      text-align: center;
+    }
+    .card h1 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: #003766;
+    }
+    .card p {
+      margin: 4px 0;
+      font-size: 14px;
+      color: #335;
+    }
+    .btn {
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: none;
+      background: #0050a0;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="statusCard">
+    <h1>Preparing to Print…</h1>
+    <p>You can return to the Ladies Bible Study site at any time:</p>
+    <a class="btn" href="https://tuesdaysbiblestudy.com">Return to Website</a>
+  </div>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const fileName = params.get("file") || "";
+      const card = document.getElementById("statusCard");
+
+      if (!fileName) {
+        card.innerHTML = "<h1>Oops</h1><p>No file was specified to print.</p><a class='btn' href='https://tuesdaysbiblestudy.com'>Return to Website</a>";
+        return;
+      }
+
+      // User agent detection
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      const isIOS = /iPad|iPhone|iPod/.test(ua);
+      const isIOSChrome = /CriOS/i.test(ua); // Chrome on iOS
+      const isGoogleApp = /GSA/i.test(ua);   // Google Search app
+
+      // Is this the Charts PDF?
+      const isCharts = fileName.toLowerCase() === "charts.pdf";
+
+      // For iOS Google app / Chrome, OR iOS Safari with charts.pdf:
+      // open the PDF directly so multi-page prints behave correctly.
+      if (isIOS && (isIOSChrome || isGoogleApp || isCharts)) {
+        window.location.href = fileName;
+        return;
+      }
+
+      // For Safari on iOS (non-Charts) and desktop browsers: iframe + auto print
+      const iframe = document.createElement("iframe");
+      iframe.style.position = "fixed";
+      iframe.style.right = "0";
+      iframe.style.bottom = "0";
+      iframe.style.width = "0";
+      iframe.style.height = "0";
+      iframe.style.border = "0";
+      iframe.src = fileName;
+
+      iframe.onload = function () {
+        setTimeout(function () {
+          try {
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+          } catch (e) {
+            // If print() is blocked, fall back to just opening the PDF
+            window.location.href = fileName;
+          }
+        }, 700);
+      };
+
+      document.body.appendChild(iframe);
+    })();
+  </script>
+</body>
+</html>
