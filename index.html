@@ -593,11 +593,26 @@
       });
     });
 
-    // Print helper
-    function printPDF(fileName) {
-      if (!fileName) return;
-      window.location.href = "print.html?file=" + encodeURIComponent(fileName);
-    }
-  </script>
-</body>
-</html>
+    <script> 
+      // Updated printPDF function
+function printPDF(fileName) {
+  if (!fileName) return;
+
+  const ua = navigator.userAgent || navigator.vendor || window.opera;
+  const isIOSDevice = /iPad|iPhone|iPod/.test(ua);
+  const isModernIPad =
+    !isIOSDevice &&
+    navigator.platform === "MacIntel" &&
+    navigator.maxTouchPoints > 1;
+  const isIOS = isIOSDevice || isModernIPad;
+
+  if (isIOS) {
+    window.open(fileName, "_blank", "noopener");
+  } else {
+    window.open(
+      "print.html?file=" + encodeURIComponent(fileName),
+      "_blank",
+      "noopener"
+    );
+  }
+}
