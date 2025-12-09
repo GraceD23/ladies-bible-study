@@ -72,23 +72,22 @@
         return;
       }
 
-      // User agent detection
+      // Detect iOS (Safari, Chrome, Google app – all WebKit)
       const ua = navigator.userAgent || navigator.vendor || window.opera;
       const isIOS = /iPad|iPhone|iPod/.test(ua);
-      const isIOSChrome = /CriOS/i.test(ua); // Chrome on iOS
-      const isGoogleApp = /GSA/i.test(ua);   // Google Search app
 
-      // Is this the Charts PDF?
+      // Check if this is the Charts PDF
       const isCharts = fileName.toLowerCase() === "charts.pdf";
 
-      // For iOS Google app / Chrome, OR iOS Safari with charts.pdf:
-      // open the PDF directly so multi-page prints behave correctly.
-      if (isIOS && (isIOSChrome || isGoogleApp || isCharts)) {
+      if (isIOS && isCharts) {
+        // Special case: on iPhone/iPad for charts.pdf,
+        // do NOT auto-print – just open the PDF so all 4 pages are visible.
         window.location.href = fileName;
         return;
       }
 
-      // For Safari on iOS (non-Charts) and desktop browsers: iframe + auto print
+      // For everything else (all devices, all other PDFs):
+      // use iframe + auto print
       const iframe = document.createElement("iframe");
       iframe.style.position = "fixed";
       iframe.style.right = "0";
