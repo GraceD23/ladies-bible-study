@@ -20,12 +20,15 @@
 
     *,
     *::before,
-    *::after { box-sizing: border-box; }
+    *::after {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
       background: var(--bg-light);
       color: var(--text-dark);
       display: flex;
@@ -51,7 +54,7 @@
       font-weight: 600;
       font-size: 0.98rem;
       line-height: 1.5;
-      margin: 0 auto 18px;
+      margin: 0 auto 26px;
       max-width: 520px;
     }
 
@@ -105,7 +108,9 @@
       flex-shrink: 0;
     }
 
-    .card-actions.single { align-items: center; }
+    .card-actions.single {
+      align-items: center;
+    }
 
     .pill-button {
       border-radius: 999px;
@@ -133,14 +138,16 @@
       width: 100%;
     }
 
-    .card.playing .audio-wrapper { display: block; }
+    .card.playing .audio-wrapper {
+      display: block;
+    }
 
-    audio { width: 100%; }
+    audio {
+      width: 100%;
+    }
 
-    /* CHARTS (now at top) */
     .charts-section {
-      margin-top: 10px;
-      margin-bottom: 18px;
+      margin-top: 22px;
       display: flex;
       justify-content: center;
     }
@@ -192,9 +199,15 @@
     }
 
     @media (min-width: 768px) {
-      .page { padding-top: 40px; }
-      .card { padding: 18px 22px 16px; }
-      .card-title { font-size: 1.05rem; }
+      .page {
+        padding-top: 40px;
+      }
+      .card {
+        padding: 18px 22px 16px;
+      }
+      .card-title {
+        font-size: 1.05rem;
+      }
     }
   </style>
 </head>
@@ -204,14 +217,6 @@
     <p class="intro">
       Welcome to Ladies Bible Study! Below you will have access to previous lessons with new lessons added weekly.
     </p>
-
-    <!-- CHARTS MOVED TO TOP (above all lessons) -->
-    <section class="charts-section">
-      <div class="charts-card">
-        <div class="charts-label">Charts</div>
-        <button class="pill-button" type="button" onclick="printPDF('charts.pdf')">Print</button>
-      </div>
-    </section>
 
     <section class="lessons">
       <!-- 1 -->
@@ -320,7 +325,7 @@
         </div>
       </article>
 
-      <!-- 7 -->
+      <!-- 7: A Secure Connection WITH PRINT -->
       <article class="card">
         <div class="card-main">
           <h2 class="card-title">A Secure Connection</h2>
@@ -408,7 +413,7 @@
         </div>
       </article>
 
-      <!-- 12 -->
+      <!-- 12: NEW PART 4 -->
       <article class="card">
         <div class="card-main">
           <h2 class="card-title">In Heavenly Places in Christ Jesus Part 4</h2>
@@ -424,7 +429,13 @@
           <button class="pill-button" type="button" onclick="handleListen('audio-heavenly4', this)">Listen</button>
         </div>
       </article>
+    </section>
 
+    <section class="charts-section">
+      <div class="charts-card">
+        <div class="charts-label">Charts</div>
+        <button class="pill-button" type="button" onclick="printPDF('charts.pdf')">Print</button>
+      </div>
     </section>
 
     <p class="note">
@@ -442,7 +453,9 @@
       const cards = document.querySelectorAll(".card");
       const audios = document.querySelectorAll("audio");
       cards.forEach((c) => c.classList.remove("playing"));
-      audios.forEach((a) => { a.pause(); });
+      audios.forEach((a) => {
+        a.pause();
+      });
     }
 
     function handleListen(audioId, btn) {
@@ -455,7 +468,9 @@
 
       if (!isPlaying) {
         card.classList.add("playing");
-        audio.play().catch(() => {});
+        audio.play().catch(() => {
+          // Autoplay might be blocked; user can press play manually.
+        });
       }
     }
 
@@ -473,7 +488,11 @@
       if (isIOS) {
         window.open(fileName, "_blank", "noopener");
       } else {
-        window.open("print.html?file=" + encodeURIComponent(fileName), "_blank", "noopener");
+        window.open(
+          "print.html?file=" + encodeURIComponent(fileName),
+          "_blank",
+          "noopener"
+        );
       }
     }
   </script>
