@@ -201,8 +201,8 @@ layout: none
     <h1 class="title">LADIES BIBLE STUDY</h1>
     <p class="intro">{{ site.data.site.welcome_message }}</p>
 
-    {% assign prev = site.lessons | where: "semester", "previous" | sort: "date" | reverse %}
-    {% assign cur  = site.lessons | where: "semester", "current"  | sort: "date" | reverse %}
+    {% assign prev = site.lessons | where: "semester", "previous" | sort: "date" %}
+    {% assign cur  = site.lessons | where: "semester", "current"  | sort: "date" %}
 
     <!-- LAST SEMESTER -->
     <details class="semester">
