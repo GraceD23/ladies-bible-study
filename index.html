@@ -14,19 +14,27 @@ layout: none
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg-light: #fef9eb;
-      --text-dark: #4e4441;
-      --pill-bg: #fef9eb;
+  :root {
+    --bg-light: #fef9eb;
+    --text-dark: #4e4441;
+    --pill-bg: #fef9eb;
 
-      /* Last Semester (green/gray) */
-      --prev-main: #acb2aa;
-      --prev-chart: #898b88;
+    /* Last Semester (green/gray) */
+    --prev-main: #acb2aa;
+    --prev-chart: #898b88;
 
-      /* This Semester (pink) */
-      --cur-main: #d6aea2;
-      --cur-chart: #fbcaba;
-    }
+    /* This Semester (pink) */
+    --cur-main: #d6aea2;
+    --cur-chart: #fbcaba;
+  }
+
+  /* Lesson title + date should be dark brown */
+  .card-title,
+  .card-date {
+    color: var(--text-dark);
+  }
+</style>
+
 
     *, *::before, *::after { box-sizing: border-box; }
 
