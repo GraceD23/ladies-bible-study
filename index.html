@@ -30,38 +30,33 @@ layout: none
 
     *, *::before, *::after { box-sizing: border-box; }
 
+    html, body {
+      height: 100%;
+    }
+
     body {
       margin: 0;
-      min-height: 100vh;
       font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: var(--bg-light);
       color: var(--text-dark);
       display: flex;
-      justify-content: center;
+      flex-direction: column; /* enables sticky footer */
     }
 
-    .page {
-      width: 100%;
-      max-width: 780px;
-      padding: 32px 18px 40px;
-    }
-
-    /* Header image (JPEG) */
+    /* ===== FULL-WIDTH HEADER ===== */
     .site-header {
       width: 100%;
       height: auto;
       display: block;
-      margin: 0 auto 18px;
-      border-radius: 18px;
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
     }
 
-    /* Footer image (JPG) - half the header width */
-    .site-footer-img {
-      width: 50%;
-      height: auto;
-      display: block;
-      margin: 22px auto 0;
+    /* ===== CENTERED CONTENT WRAPPER ===== */
+    .page {
+      width: 100%;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 28px 18px 40px;
+      flex: 1; /* pushes footer to bottom */
     }
 
     h1.title {
@@ -124,11 +119,9 @@ layout: none
     }
 
     .card {
-      color: #ffffff; /* default for other text */
       border-radius: 22px;
       padding: 16px 16px 14px;
       display: flex;
-      align-items: stretch;
       justify-content: space-between;
       gap: 12px;
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
@@ -139,14 +132,9 @@ layout: none
     details.semester.cur  .card { background: var(--cur-main); }
 
     .card-main {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-width: 0;
       width: 100%;
     }
 
-    /* Title + date should match button text color */
     .card-title,
     .card-date {
       color: var(--text-dark);
@@ -156,26 +144,23 @@ layout: none
       font-size: 1rem;
       font-weight: 700;
       margin: 0 0 4px;
-      line-height: 1.4;
     }
 
     .card-date {
       font-size: 0.82rem;
       font-weight: 500;
-      opacity: 0.95;
-      margin: 0;
     }
 
     .card-actions {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: stretch;
       gap: 6px;
-      flex-shrink: 0;
     }
 
-    .card-actions.single { align-items: center; }
+    .card-actions.single {
+      align-items: center;
+    }
 
     .pill-button {
       border-radius: 999px;
@@ -184,23 +169,14 @@ layout: none
       font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
-      font-family: inherit;
-      transition: transform 0.08s ease, box-shadow 0.08s ease;
-      white-space: nowrap;
       background: var(--pill-bg);
       color: var(--text-dark);
       box-shadow: 0 3px 7px rgba(0, 0, 0, 0.14);
     }
 
-    .pill-button:active {
-      transform: translateY(1px);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
-    }
-
     .audio-wrapper {
       display: none;
       margin-top: 10px;
-      width: 100%;
     }
 
     .card.playing .audio-wrapper { display: block; }
@@ -208,8 +184,7 @@ layout: none
     audio { width: 100%; }
 
     .charts-section {
-      margin-top: 10px;
-      margin-bottom: 18px;
+      margin: 10px 0 18px;
       display: flex;
       justify-content: center;
     }
@@ -219,7 +194,6 @@ layout: none
       border-radius: 18px;
       padding: 12px 18px;
       display: inline-flex;
-      align-items: center;
       justify-content: space-between;
       gap: 12px;
       min-width: min(380px, 100%);
@@ -229,30 +203,24 @@ layout: none
     details.semester.prev .charts-card { background: var(--prev-chart); }
     details.semester.cur  .charts-card { background: var(--cur-chart); }
 
-    .charts-label {
-      font-weight: 700;
-      font-size: 0.96rem;
-    }
-
-    @media (min-width: 768px) {
-      .page { padding-top: 40px; }
-      .card { padding: 18px 22px 16px; }
-      .card-title { font-size: 1.05rem; }
+    /* ===== FULL-WIDTH FOOTER ===== */
+    .site-footer {
+      width: 100%;
+      height: auto;
+      display: block;
     }
   </style>
 </head>
 
 <body>
+
+  <!-- FULL-WIDTH HEADER -->
+  <img src="/assets/img/header.jpg" alt="Ladies Bible Study" class="site-header">
+
+  <!-- CENTERED CONTENT -->
   <main class="page">
 
-    <!-- Header JPEG -->
-    <img
-      src="/assets/img/header.jpg"
-      alt="Ladies Bible Study"
-      class="site-header"
-    />
-
-
+    <h1 class="title">LADIES BIBLE STUDY</h1>
     <p class="intro">{{ site.data.site.welcome_message }}</p>
 
     {% assign prev = site.lessons | where: "semester", "previous" | sort: "date" %}
@@ -265,9 +233,8 @@ layout: none
 
         <section class="charts-section">
           <div class="charts-card">
-            <div class="charts-label">Charts</div>
-            <button class="pill-button" type="button"
-              onclick="openFile('{{ site.data.site.charts_previous_url }}')">Open</button>
+            <div>Charts</div>
+            <button class="pill-button" onclick="openFile('{{ site.data.site.charts_previous_url }}')">Open</button>
           </div>
         </section>
 
@@ -292,12 +259,10 @@ layout: none
 
             <div class="card-actions {% if has_pdf == false %}single{% endif %}">
               {% if has_pdf %}
-              <button class="pill-button" type="button"
-                onclick="openFile('{{ l.pdf }}')">Print</button>
+              <button class="pill-button" onclick="openFile('{{ l.pdf }}')">Print</button>
               {% endif %}
               {% if has_audio %}
-              <button class="pill-button" type="button"
-                onclick="handleListen('audio-prev-{{ forloop.index }}', this)">Listen</button>
+              <button class="pill-button" onclick="handleListen('audio-prev-{{ forloop.index }}', this)">Listen</button>
               {% endif %}
             </div>
           </article>
@@ -313,9 +278,8 @@ layout: none
 
         <section class="charts-section">
           <div class="charts-card">
-            <div class="charts-label">Charts</div>
-            <button class="pill-button" type="button"
-              onclick="openFile('{{ site.data.site.charts_current_url }}')">Open</button>
+            <div>Charts</div>
+            <button class="pill-button" onclick="openFile('{{ site.data.site.charts_current_url }}')">Open</button>
           </div>
         </section>
 
@@ -340,12 +304,10 @@ layout: none
 
             <div class="card-actions {% if has_pdf == false %}single{% endif %}">
               {% if has_pdf %}
-              <button class="pill-button" type="button"
-                onclick="openFile('{{ l.pdf }}')">Print</button>
+              <button class="pill-button" onclick="openFile('{{ l.pdf }}')">Print</button>
               {% endif %}
               {% if has_audio %}
-              <button class="pill-button" type="button"
-                onclick="handleListen('audio-cur-{{ forloop.index }}', this)">Listen</button>
+              <button class="pill-button" onclick="handleListen('audio-cur-{{ forloop.index }}', this)">Listen</button>
               {% endif %}
             </div>
           </article>
@@ -354,14 +316,10 @@ layout: none
       </div>
     </details>
 
-    <!-- Bottom JPG (half header width) -->
-    <img
-      src="/assets/img/footer.jpg"
-      alt=""
-      class="site-footer-img"
-    />
-
   </main>
+
+  <!-- FULL-WIDTH FOOTER -->
+  <img src="/assets/img/footer.jpg" alt="" class="site-footer">
 
   <script>
     function stopAllAudio() {
@@ -388,7 +346,7 @@ layout: none
       window.open(url, "_blank", "noopener");
     }
   </script>
+
 </body>
 </html>
-
 
