@@ -231,18 +231,19 @@ layout: none
                 </audio>
               </div>
             </div>
+{% assign has_pdf = l.pdf != blank %}
+{% assign has_audio = l.audio != blank %}
 
-            {% assign has_pdf = l.pdf and l.pdf != "" %}
-            {% assign has_audio = l.audio and l.audio != "" %}
+<div class="card-actions {% if has_pdf == false %}single{% endif %}">
+  {% if has_pdf %}
+  <button class="pill-button" type="button" onclick="openFile('{{ l.pdf }}')">Print</button>
+  {% endif %}
+  {% if has_audio %}
+  <button class="pill-button" type="button" onclick="handleListen('audio-{{ forloop.index }}-prev', this)">Listen</button>
+  {% endif %}
+</div>
 
-            <div class="card-actions {% if has_pdf == false %}single{% endif %}">
-              {% if has_pdf %}
-              <button class="pill-button" type="button" onclick="openFile('{{ l.pdf }}')">Print</button>
-              {% endif %}
-              {% if has_audio %}
-              <button class="pill-button" type="button" onclick="handleListen('audio-{{ forloop.index }}-prev', this)">Listen</button>
-              {% endif %}
-            </div>
+      
           </article>
           {% endfor %}
         </section>
@@ -277,20 +278,17 @@ layout: none
               </div>
             </div>
 
-            {% assign has_pdf = l.pdf and l.pdf != "" %}
-            {% assign has_audio = l.audio and l.audio != "" %}
+{% assign has_pdf = l.pdf != blank %}
+{% assign has_audio = l.audio != blank %}
 
-            <div class="card-actions {% if has_pdf == false %}single{% endif %}">
-              {% if has_pdf %}
-              <button class="pill-button" type="button" onclick="openFile('{{ l.pdf }}')">Print</button>
-              {% endif %}
-              {% if has_audio %}
-              <button class="pill-button" type="button" onclick="handleListen('audio-{{ forloop.index }}-cur', this)">Listen</button>
-              {% endif %}
-            </div>
-          </article>
-          {% endfor %}
-        </section>
+<div class="card-actions {% if has_pdf == false %}single{% endif %}">
+  {% if has_pdf %}
+  <button class="pill-button" type="button" onclick="openFile('{{ l.pdf }}')">Print</button>
+  {% endif %}
+  {% if has_audio %}
+  <button class="pill-button" type="button" onclick="handleListen('audio-{{ forloop.index }}-cur', this)">Listen</button>
+  {% endif %}
+</div>
 
       </div>
     </details>
