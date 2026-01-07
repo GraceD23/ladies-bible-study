@@ -14,27 +14,19 @@ layout: none
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-  :root {
-    --bg-light: #fef9eb;
-    --text-dark: #4e4441;
-    --pill-bg: #fef9eb;
+    :root {
+      --bg-light: #fef9eb;
+      --text-dark: #4e4441;
+      --pill-bg: #fef9eb;
 
-    /* Last Semester (green/gray) */
-    --prev-main: #acb2aa;
-    --prev-chart: #898b88;
+      /* Last Semester (green/gray) */
+      --prev-main: #acb2aa;
+      --prev-chart: #898b88;
 
-    /* This Semester (pink) */
-    --cur-main: #d6aea2;
-    --cur-chart: #fbcaba;
-  }
-
-  /* Lesson title + date should be dark brown */
-  .card-title,
-  .card-date {
-    color: var(--text-dark);
-  }
-</style>
-
+      /* This Semester (pink) */
+      --cur-main: #d6aea2;
+      --cur-chart: #fbcaba;
+    }
 
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -54,12 +46,31 @@ layout: none
       padding: 32px 18px 40px;
     }
 
+    /* Header image (JPEG) */
+    .site-header {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto 18px;
+      border-radius: 18px;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Footer image (JPG) - half the header width */
+    .site-footer-img {
+      width: 50%;
+      height: auto;
+      display: block;
+      margin: 22px auto 0;
+    }
+
     h1.title {
       text-align: center;
       letter-spacing: 0.16em;
       font-weight: 700;
       font-size: 1.9rem;
       margin: 0 0 10px;
+      color: var(--text-dark);
     }
 
     .intro {
@@ -69,6 +80,7 @@ layout: none
       line-height: 1.5;
       margin: 0 auto 18px;
       max-width: 520px;
+      color: var(--text-dark);
     }
 
     details.semester {
@@ -90,32 +102,14 @@ layout: none
 
     summary.semester-title::-webkit-details-marker { display: none; }
 
-    /* ===== SEMESTER COLOR THEMES ===== */
-
+    /* Semester header colors */
     details.semester.prev summary.semester-title {
       background: var(--prev-main);
       color: #ffffff;
     }
-
-    details.semester.prev .card {
-      background: var(--prev-main);
-    }
-
-    details.semester.prev .charts-card {
-      background: var(--prev-chart);
-    }
-
     details.semester.cur summary.semester-title {
       background: var(--cur-main);
       color: #ffffff;
-    }
-
-    details.semester.cur .card {
-      background: var(--cur-main);
-    }
-
-    details.semester.cur .charts-card {
-      background: var(--cur-chart);
     }
 
     .semester-inner {
@@ -130,15 +124,19 @@ layout: none
     }
 
     .card {
-      color: #ffffff;
+      color: #ffffff; /* default for other text */
       border-radius: 22px;
       padding: 16px 16px 14px;
       display: flex;
       align-items: stretch;
       justify-content: space-between;
       gap: 12px;
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
     }
+
+    /* Semester card colors */
+    details.semester.prev .card { background: var(--prev-main); }
+    details.semester.cur  .card { background: var(--cur-main); }
 
     .card-main {
       display: flex;
@@ -146,6 +144,12 @@ layout: none
       justify-content: center;
       min-width: 0;
       width: 100%;
+    }
+
+    /* Title + date should match button text color */
+    .card-title,
+    .card-date {
+      color: var(--text-dark);
     }
 
     .card-title {
@@ -158,7 +162,7 @@ layout: none
     .card-date {
       font-size: 0.82rem;
       font-weight: 500;
-      opacity: 0.9;
+      opacity: 0.95;
       margin: 0;
     }
 
@@ -185,12 +189,12 @@ layout: none
       white-space: nowrap;
       background: var(--pill-bg);
       color: var(--text-dark);
-      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.14);
     }
 
     .pill-button:active {
       transform: translateY(1px);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
     }
 
     .audio-wrapper {
@@ -219,8 +223,11 @@ layout: none
       justify-content: space-between;
       gap: 12px;
       min-width: min(380px, 100%);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
     }
+
+    details.semester.prev .charts-card { background: var(--prev-chart); }
+    details.semester.cur  .charts-card { background: var(--cur-chart); }
 
     .charts-label {
       font-weight: 700;
@@ -237,7 +244,17 @@ layout: none
 
 <body>
   <main class="page">
+
+    <!-- Header JPEG -->
+    <img
+      src="/assets/img/header.jpg"
+      alt="Ladies Bible Study"
+      class="site-header"
+    />
+
+    <!-- You can keep this title or delete it if your header already contains the title -->
     <h1 class="title">LADIES BIBLE STUDY</h1>
+
     <p class="intro">{{ site.data.site.welcome_message }}</p>
 
     {% assign prev = site.lessons | where: "semester", "previous" | sort: "date" %}
@@ -263,11 +280,13 @@ layout: none
               <h2 class="card-title">{{ l.title }}</h2>
               <p class="card-date">{{ l.date | date: "%B %-d, %Y" }}</p>
 
+              {% if l.audio != blank %}
               <div class="audio-wrapper">
                 <audio id="audio-prev-{{ forloop.index }}" controls preload="metadata">
                   <source src="{{ l.audio }}" type="audio/mp4" />
                 </audio>
               </div>
+              {% endif %}
             </div>
 
             {% assign has_pdf = l.pdf != blank %}
@@ -309,11 +328,13 @@ layout: none
               <h2 class="card-title">{{ l.title }}</h2>
               <p class="card-date">{{ l.date | date: "%B %-d, %Y" }}</p>
 
+              {% if l.audio != blank %}
               <div class="audio-wrapper">
                 <audio id="audio-cur-{{ forloop.index }}" controls preload="metadata">
                   <source src="{{ l.audio }}" type="audio/mp4" />
                 </audio>
               </div>
+              {% endif %}
             </div>
 
             {% assign has_pdf = l.pdf != blank %}
@@ -334,6 +355,14 @@ layout: none
         </section>
       </div>
     </details>
+
+    <!-- Bottom JPG (half header width) -->
+    <img
+      src="/assets/img/footer.jpg"
+      alt=""
+      class="site-footer-img"
+    />
+
   </main>
 
   <script>
@@ -363,4 +392,5 @@ layout: none
   </script>
 </body>
 </html>
+
 
