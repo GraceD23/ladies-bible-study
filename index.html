@@ -206,4 +206,121 @@ layout: none
 
     <!-- LAST SEMESTER -->
     <details class="semester">
-      <summary class="semester-title">{{ site.data.site.semester_previous_title }}</summ
+      <summary class="semester-title">{{ site.data.site.semester_previous_title }}</summary>
+      <div class="semester-inner">
+
+        <section class="charts-section">
+          <div class="charts-card">
+            <div class="charts-label">Charts</div>
+            <button class="pill-button" type="button"
+              onclick="openFile('{{ site.data.site.charts_previous_url }}')">Open</button>
+          </div>
+        </section>
+
+        <section class="lessons">
+          {% for l in prev %}
+          <article class="card">
+            <div class="card-main">
+              <h2 class="card-title">{{ l.title }}</h2>
+              <p class="card-date">{{ l.date | date: "%B %-d, %Y" }}</p>
+
+              <div class="audio-wrapper">
+                <audio id="audio-prev-{{ forloop.index }}" controls preload="metadata">
+                  <source src="{{ l.audio }}" type="audio/mp4" />
+                </audio>
+              </div>
+            </div>
+
+            {% assign has_pdf = l.pdf != blank %}
+            {% assign has_audio = l.audio != blank %}
+
+            <div class="card-actions {% if has_pdf == false %}single{% endif %}">
+              {% if has_pdf %}
+              <button class="pill-button" type="button"
+                onclick="openFile('{{ l.pdf }}')">Print</button>
+              {% endif %}
+              {% if has_audio %}
+              <button class="pill-button" type="button"
+                onclick="handleListen('audio-prev-{{ forloop.index }}', this)">Listen</button>
+              {% endif %}
+            </div>
+          </article>
+          {% endfor %}
+        </section>
+      </div>
+    </details>
+
+    <!-- THIS SEMESTER -->
+    <details class="semester">
+      <summary class="semester-title">{{ site.data.site.semester_current_title }}</summary>
+      <div class="semester-inner">
+
+        <section class="charts-section">
+          <div class="charts-card">
+            <div class="charts-label">Charts</div>
+            <button class="pill-button" type="button"
+              onclick="openFile('{{ site.data.site.charts_current_url }}')">Open</button>
+          </div>
+        </section>
+
+        <section class="lessons">
+          {% for l in cur %}
+          <article class="card">
+            <div class="card-main">
+              <h2 class="card-title">{{ l.title }}</h2>
+              <p class="card-date">{{ l.date | date: "%B %-d, %Y" }}</p>
+
+              <div class="audio-wrapper">
+                <audio id="audio-cur-{{ forloop.index }}" controls preload="metadata">
+                  <source src="{{ l.audio }}" type="audio/mp4" />
+                </audio>
+              </div>
+            </div>
+
+            {% assign has_pdf = l.pdf != blank %}
+            {% assign has_audio = l.audio != blank %}
+
+            <div class="card-actions {% if has_pdf == false %}single{% endif %}">
+              {% if has_pdf %}
+              <button class="pill-button" type="button"
+                onclick="openFile('{{ l.pdf }}')">Print</button>
+              {% endif %}
+              {% if has_audio %}
+              <button class="pill-button" type="button"
+                onclick="handleListen('audio-cur-{{ forloop.index }}', this)">Listen</button>
+              {% endif %}
+            </div>
+          </article>
+          {% endfor %}
+        </section>
+      </div>
+    </details>
+  </main>
+
+  <script>
+    function stopAllAudio() {
+      document.querySelectorAll(".card").forEach(c => c.classList.remove("playing"));
+      document.querySelectorAll("audio").forEach(a => a.pause());
+    }
+
+    function handleListen(audioId, btn) {
+      const card = btn.closest(".card");
+      const audio = document.getElementById(audioId);
+      if (!audio || !card) return;
+
+      const isPlaying = card.classList.contains("playing");
+      stopAllAudio();
+
+      if (!isPlaying) {
+        card.classList.add("playing");
+        audio.play().catch(() => {});
+      }
+    }
+
+    function openFile(url) {
+      if (!url || url === "#") return;
+      window.open(url, "_blank", "noopener");
+    }
+  </script>
+</body>
+</html>
