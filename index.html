@@ -19,13 +19,13 @@ layout: none
       --text-dark: #4e4441;
       --pill-bg: #fef9eb;
 
-     /* Last Semester (green) */
-  --prev-main: #acb2aa;
-  --prev-chart: #898b88;
+      /* Last Semester (green/gray) */
+      --prev-main: #acb2aa;
+      --prev-chart: #898b88;
 
-  /* This Semester (pink) */
-  --cur-main: #d6aea2;
-  --cur-chart: #fbcaba;
+      /* This Semester (pink) */
+      --cur-main: #d6aea2;
+      --cur-chart: #fbcaba;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -82,14 +82,32 @@ layout: none
 
     summary.semester-title::-webkit-details-marker { display: none; }
 
+    /* ===== SEMESTER COLOR THEMES ===== */
+
     details.semester.prev summary.semester-title {
-      background: var(--semester-prev);
+      background: var(--prev-main);
       color: #ffffff;
     }
 
+    details.semester.prev .card {
+      background: var(--prev-main);
+    }
+
+    details.semester.prev .charts-card {
+      background: var(--prev-chart);
+    }
+
     details.semester.cur summary.semester-title {
-      background: var(--semester-cur);
+      background: var(--cur-main);
       color: #ffffff;
+    }
+
+    details.semester.cur .card {
+      background: var(--cur-main);
+    }
+
+    details.semester.cur .charts-card {
+      background: var(--cur-chart);
     }
 
     .semester-inner {
@@ -104,7 +122,6 @@ layout: none
     }
 
     .card {
-      background: var(--card-blue);
       color: #ffffff;
       border-radius: 22px;
       padding: 16px 16px 14px;
@@ -186,7 +203,6 @@ layout: none
     }
 
     .charts-card {
-      background: var(--chart-blue);
       color: #ffffff;
       border-radius: 18px;
       padding: 12px 18px;
@@ -339,3 +355,4 @@ layout: none
   </script>
 </body>
 </html>
+
