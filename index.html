@@ -20,9 +20,10 @@ layout: none
       --chart-blue: #3a7ccf;
       --text-dark: #003766;
       --pill-bg: #ffffff;
-      
-       --semester-prev: #5b7fb8;   /* Last Semester */
-  --semester-cur:  #3f9c88;   /* This Semester */
+
+      /* semester colors */
+      --semester-prev: #5b7fb8;
+      --semester-cur:  #3f9c88;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -73,12 +74,21 @@ layout: none
       font-size: 1.05rem;
       padding: 12px 14px;
       border-radius: 18px;
-      background: rgba(255,255,255,0.35);
       box-shadow: 0 8px 18px rgba(0,0,0,0.12);
       user-select: none;
     }
 
     summary.semester-title::-webkit-details-marker { display: none; }
+
+    details.semester.prev summary.semester-title {
+      background: var(--semester-prev);
+      color: #ffffff;
+    }
+
+    details.semester.cur summary.semester-title {
+      background: var(--semester-cur);
+      color: #ffffff;
+    }
 
     .semester-inner {
       margin-top: 14px;
@@ -208,7 +218,7 @@ layout: none
     {% assign cur  = site.lessons | where: "semester", "current"  | sort: "date" %}
 
     <!-- LAST SEMESTER -->
-    <details class="semester">
+    <details class="semester prev">
       <summary class="semester-title">{{ site.data.site.semester_previous_title }}</summary>
       <div class="semester-inner">
 
@@ -254,7 +264,7 @@ layout: none
     </details>
 
     <!-- THIS SEMESTER -->
-    <details class="semester">
+    <details class="semester cur">
       <summary class="semester-title">{{ site.data.site.semester_current_title }}</summary>
       <div class="semester-inner">
 
