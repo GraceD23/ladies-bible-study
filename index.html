@@ -57,7 +57,6 @@ layout: none
       max-width: 520px;
     }
 
-    /* Semester dropdown blocks */
     details.semester {
       margin-top: 18px;
     }
@@ -164,7 +163,6 @@ layout: none
 
     audio { width: 100%; }
 
-    /* Charts card (inside each dropdown) */
     .charts-section {
       margin-top: 10px;
       margin-bottom: 18px;
@@ -176,7 +174,7 @@ layout: none
       background: var(--chart-blue);
       color: #ffffff;
       border-radius: 18px;
-      padding: 12px 18px 12px;
+      padding: 12px 18px;
       display: inline-flex;
       align-items: center;
       justify-content: space-between;
@@ -197,6 +195,7 @@ layout: none
     }
   </style>
 </head>
+
 <body>
   <main class="page">
     <h1 class="title">LADIES BIBLE STUDY</h1>
@@ -207,120 +206,4 @@ layout: none
 
     <!-- LAST SEMESTER -->
     <details class="semester">
-      <summary class="semester-title">{{ site.data.site.semester_previous_title }}</summary>
-      <div class="semester-inner">
-
-        <section class="charts-section">
-          <div class="charts-card">
-            <div class="charts-label">Charts</div>
-            <button class="pill-button" type="button" onclick="openFile('{{ site.data.site.charts_previous_url }}')">Open</button>
-          </div>
-        </section>
-
-        <section class="lessons">
-          {% for l in prev %}
-          <article class="card">
-            <div class="card-main">
-              <h2 class="card-title">{{ l.title }}</h2>
-              <p class="card-date">{{ l.date | date: "%B %-d, %Y" }}</p>
-
-              <div class="audio-wrapper">
-                <audio id="audio-{{ forloop.index }}-prev" controls preload="metadata">
-                  <source src="{{ l.audio }}" type="audio/mp4" />
-                  Your browser does not support the audio element.
-                </audio>
-              </div>
-            </div>
-{% assign has_pdf = l.pdf != blank %}
-{% assign has_audio = l.audio != blank %}
-
-<div class="card-actions {% if has_pdf == false %}single{% endif %}">
-  {% if has_pdf %}
-  <button class="pill-button" type="button" onclick="openFile('{{ l.pdf }}')">Print</button>
-  {% endif %}
-  {% if has_audio %}
-  <button class="pill-button" type="button" onclick="handleListen('audio-{{ forloop.index }}-prev', this)">Listen</button>
-  {% endif %}
-</div>
-
-      
-          </article>
-          {% endfor %}
-        </section>
-
-      </div>
-    </details>
-
-    <!-- THIS SEMESTER -->
-    <details class="semester">
-      <summary class="semester-title">{{ site.data.site.semester_current_title }}</summary>
-      <div class="semester-inner">
-
-        <section class="charts-section">
-          <div class="charts-card">
-            <div class="charts-label">Charts</div>
-            <button class="pill-button" type="button" onclick="openFile('{{ site.data.site.charts_current_url }}')">Open</button>
-          </div>
-        </section>
-
-        <section class="lessons">
-          {% for l in cur %}
-          <article class="card">
-            <div class="card-main">
-              <h2 class="card-title">{{ l.title }}</h2>
-              <p class="card-date">{{ l.date | date: "%B %-d, %Y" }}</p>
-
-              <div class="audio-wrapper">
-                <audio id="audio-{{ forloop.index }}-cur" controls preload="metadata">
-                  <source src="{{ l.audio }}" type="audio/mp4" />
-                  Your browser does not support the audio element.
-                </audio>
-              </div>
-            </div>
-
-{% assign has_pdf = l.pdf != blank %}
-{% assign has_audio = l.audio != blank %}
-
-<div class="card-actions {% if has_pdf == false %}single{% endif %}">
-  {% if has_pdf %}
-  <button class="pill-button" type="button" onclick="openFile('{{ l.pdf }}')">Print</button>
-  {% endif %}
-  {% if has_audio %}
-  <button class="pill-button" type="button" onclick="handleListen('audio-{{ forloop.index }}-cur', this)">Listen</button>
-  {% endif %}
-</div>
-
-      </div>
-    </details>
-
-  </main>
-
-  <script>
-    function stopAllAudio() {
-      const cards = document.querySelectorAll(".card");
-      const audios = document.querySelectorAll("audio");
-      cards.forEach((c) => c.classList.remove("playing"));
-      audios.forEach((a) => { a.pause(); });
-    }
-
-    function handleListen(audioId, btn) {
-      const card = btn.closest(".card");
-      const audio = document.getElementById(audioId);
-      if (!audio || !card) return;
-
-      const isPlaying = card.classList.contains("playing");
-      stopAllAudio();
-
-      if (!isPlaying) {
-        card.classList.add("playing");
-        audio.play().catch(() => {});
-      }
-    }
-
-    function openFile(url) {
-      if (!url || url === "#") return;
-      window.open(url, "_blank", "noopener");
-    }
-  </script>
-</body>
-</html>
+      <summary class="semester-title">{{ site.data.site.semester_previous_title }}</summ
