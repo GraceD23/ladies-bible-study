@@ -1,5 +1,5 @@
-welcome_message: "Welcome to Ladies Bible Study. Edit this message anytime in _data/site.yml."
-semester_previous_title: "Last Semester"
+welcome_message: "Welcome to Ladies Bible Study. Below you will have access to previous lessons with new lessons added weekly."
+semester_previous_title: "Growing in Sanctification"
 semester_current_title: "This Semester"
 
 charts_previous_url: "/assets/pdfs/charts.pdf"
