@@ -200,8 +200,20 @@ layout: none
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
     }
 
+    .charts-card div {
+  color: var(--text-dark);
+  font-weight: 700;
+  font-size: 0.96rem;
+}
+
+
     details.semester.prev .charts-card { background: var(--prev-chart); }
     details.semester.cur  .charts-card { background: var(--cur-chart); }
+
+    /* Hide all content inside This Semester (temporary) */
+details.semester.cur .semester-inner {
+  display: none;
+}
 
     /* ===== FULL-WIDTH FOOTER ===== */
     .site-footer {
