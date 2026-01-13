@@ -30,6 +30,32 @@ layout: none
       --cur-chart: #7da3b6;
     }
 
+    .charts-drop { margin-top: 10px; }
+.charts-summary { list-style: none; cursor: pointer; }
+.charts-summary::-webkit-details-marker { display: none; }
+
+/* Make the summary card feel clickable */
+.charts-summary .charts-card { cursor: pointer; }
+
+/* The "Open" on the right is just a visual cue, not a real button */
+.charts-summary .pill-button { pointer-events: none; }
+
+    /* Remove default disclosure arrow (all browsers) */
+summary {
+  list-style: none;
+}
+
+/* Chrome / Safari */
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Firefox */
+summary::marker {
+  content: "";
+}
+
+    
     .charts-stack {
       flex-direction: column;
       gap: 12px;
