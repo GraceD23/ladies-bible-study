@@ -287,14 +287,24 @@ details.semester .card-date {
       <summary class="semester-title">{{ site.data.site.semester_current_title }}</summary>
       <div class="semester-inner">
 
-        <section class="charts-section charts-stack">
-          {% for c in site.data.site.charts_current %}
-          <div class="charts-card">
-            <div>{{ c.title }}</div>
-            <button class="pill-button" type="button" onclick="openFile('{{ c.file }}')">Print</button>
-          </div>
-          {% endfor %}
-        </section>
+        <details class="charts-drop">
+  <summary class="charts-summary">
+    <div class="charts-card">
+      <div>Charts</div>
+      <span class="pill-button" aria-hidden="true">Open</span>
+    </div>
+  </summary>
+
+  <section class="charts-section charts-stack">
+    {% for c in site.data.site.charts_current %}
+    <div class="charts-card">
+      <div>{{ c.title }}</div>
+      <button class="pill-button" type="button" onclick="openFile('{{ c.file }}')">Print</button>
+    </div>
+    {% endfor %}
+  </section>
+</details>
+
 
         <section class="lessons">
           {% for l in cur %}
