@@ -29,6 +29,12 @@ layout: none
       --cur-main: #99c1d7;
       --cur-chart: #7da3b6;
     }
+    
+.charts-stack {
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
 
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -118,6 +124,7 @@ layout: none
       flex-direction: column;
       gap: 16px;
       margin-top: 14px;
+      color: #fef9eb 
     }
 
     .card {
@@ -203,7 +210,7 @@ layout: none
     }
 
     .charts-card div {
-  color: var(--text-dark);
+  color: #fef9eb (--text-light);
   font-weight: 700;
   font-size: 0.96rem;
 }
@@ -212,9 +219,7 @@ layout: none
     details.semester.prev .charts-card { background: var(--prev-chart); }
     details.semester.cur  .charts-card { background: var(--cur-chart); }
 
-    /* Hide all content inside This Semester (temporary) */
-details.semester.cur .semester-inner {
-  display: none;
+    
 }
 
     /* ===== FULL-WIDTH FOOTER ===== */
@@ -297,12 +302,15 @@ details.semester .card .card-date {
       <summary class="semester-title">{{ site.data.site.semester_current_title }}</summary>
       <div class="semester-inner">
 
-        <section class="charts-section">
-          <div class="charts-card">
-            <div>Charts</div>
-            <button class="pill-button" onclick="openFile('{{ site.data.site.charts_current_url }}')">Open</button>
-          </div>
-        </section>
+        <section class="charts-section charts-stack">
+  {% for c in site.data.site.charts_current %}
+  <div class="charts-card">
+    <div>{{ c.title }}</div>
+    <button class="pill-button" type="button" onclick="openFile('{{ c.file }}')">Print</button>
+  </div>
+  {% endfor %}
+</section>
+
 
         <section class="lessons">
           {% for l in cur %}
