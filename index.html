@@ -19,7 +19,7 @@ layout: none
       --text-dark: #485d7d;
       --pill-bg: #fef9eb;
 
-      --button-text: #485d7d;  /* ← controls Print / Listen only */
+      --button-text: #485d7d;  /* controls Print / Listen only */
 
       /* Last Semester (green/gray) */
       --prev-main: #b2d470;
@@ -29,18 +29,16 @@ layout: none
       --cur-main: #99c1d7;
       --cur-chart: #7da3b6;
     }
-    
-.charts-stack {
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-}
+
+    .charts-stack {
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
 
     *, *::before, *::after { box-sizing: border-box; }
 
-    html, body {
-      height: 100%;
-    }
+    html, body { height: 100%; }
 
     body {
       margin: 0;
@@ -83,12 +81,10 @@ layout: none
       line-height: 1.5;
       margin: 0 auto 18px;
       max-width: 520px;
-      color: #485d7d (--text-dark);
+      color: var(--text-dark);
     }
 
-    details.semester {
-      margin-top: 18px;
-    }
+    details.semester { margin-top: 18px; }
 
     summary.semester-title {
       list-style: none;
@@ -115,16 +111,14 @@ layout: none
       color: #ffffff;
     }
 
-    .semester-inner {
-      margin-top: 14px;
-    }
+    .semester-inner { margin-top: 14px; }
 
     .lessons {
       display: flex;
       flex-direction: column;
       gap: 16px;
       margin-top: 14px;
-      color: #fef9eb 
+      color: #fef9eb;
     }
 
     .card {
@@ -140,13 +134,12 @@ layout: none
     details.semester.prev .card { background: var(--prev-main); }
     details.semester.cur  .card { background: var(--cur-main); }
 
-    .card-main {
-      width: 100%;
-    }
+    .card-main { width: 100%; }
 
+    /* Lesson title/date (your intended cream) */
     .card-title,
     .card-date {
-      color: #fef9eb (--text-light);
+      color: #fef9eb;
     }
 
     .card-title {
@@ -167,9 +160,7 @@ layout: none
       gap: 6px;
     }
 
-    .card-actions.single {
-      align-items: center;
-    }
+    .card-actions.single { align-items: center; }
 
     .pill-button {
       border-radius: 999px;
@@ -179,7 +170,7 @@ layout: none
       font-weight: 600;
       cursor: pointer;
       background: var(--pill-bg);
-      color: #fef9eb (--text-white);
+      color: var(--button-text);
       box-shadow: 0 3px 7px rgba(0, 0, 0, 0.14);
     }
 
@@ -210,29 +201,27 @@ layout: none
     }
 
     .charts-card div {
-  color: #fef9eb (--text-light);
-  font-weight: 700;
-  font-size: 0.96rem;
-}
-
+      color: #fef9eb;
+      font-weight: 700;
+      font-size: 0.96rem;
+    }
 
     details.semester.prev .charts-card { background: var(--prev-chart); }
     details.semester.cur  .charts-card { background: var(--cur-chart); }
 
+    /* ===== FULL-WIDTH FOOTER ===== */
+    .site-footer {
+      width: 100%;
+      height: 50px;      /* adjust as needed */
+      object-fit: cover;
+      display: block;
+    }
     
+    details.semester .card-title,
+details.semester .card-date {
+  color: #fef9eb;
 }
 
-    /* ===== FULL-WIDTH FOOTER ===== */
-   .site-footer {
-  width: 100%;
-  height: 50px;      /* adjust as needed */
-  object-fit: cover;
-  display: block;
-}
-details.semester .card .card-title,
-details.semester .card .card-date {
-  color: #fef9eb(--text-light);
-  
   </style>
 </head>
 
@@ -241,12 +230,8 @@ details.semester .card .card-date {
   <!-- FULL-WIDTH HEADER -->
   <img src="/assets/img/header.jpg?v=6" alt="Ladies Bible Study" class="site-header">
 
-
-
   <!-- CENTERED CONTENT -->
   <main class="page">
-
-
     <p class="intro">{{ site.data.site.welcome_message }}</p>
 
     {% assign prev = site.lessons | where: "semester", "previous" | sort: "date" %}
@@ -260,7 +245,7 @@ details.semester .card .card-date {
         <section class="charts-section">
           <div class="charts-card">
             <div>Charts</div>
-            <button class="pill-button" onclick="openFile('{{ site.data.site.charts_previous_url }}')">Open</button>
+            <button class="pill-button" type="button" onclick="openFile('{{ site.data.site.charts_previous_url }}')">Open</button>
           </div>
         </section>
 
@@ -285,10 +270,10 @@ details.semester .card .card-date {
 
             <div class="card-actions {% if has_pdf == false %}single{% endif %}">
               {% if has_pdf %}
-              <button class="pill-button" onclick="openFile('{{ l.pdf }}')">Print</button>
+              <button class="pill-button" type="button" onclick="openFile('{{ l.pdf }}')">Print</button>
               {% endif %}
               {% if has_audio %}
-              <button class="pill-button" onclick="handleListen('audio-prev-{{ forloop.index }}', this)">Listen</button>
+              <button class="pill-button" type="button" onclick="handleListen('audio-prev-{{ forloop.index }}', this)">Listen</button>
               {% endif %}
             </div>
           </article>
@@ -303,14 +288,13 @@ details.semester .card .card-date {
       <div class="semester-inner">
 
         <section class="charts-section charts-stack">
-  {% for c in site.data.site.charts_current %}
-  <div class="charts-card">
-    <div>{{ c.title }}</div>
-    <button class="pill-button" type="button" onclick="openFile('{{ c.file }}')">Print</button>
-  </div>
-  {% endfor %}
-</section>
-
+          {% for c in site.data.site.charts_current %}
+          <div class="charts-card">
+            <div>{{ c.title }}</div>
+            <button class="pill-button" type="button" onclick="openFile('{{ c.file }}')">Print</button>
+          </div>
+          {% endfor %}
+        </section>
 
         <section class="lessons">
           {% for l in cur %}
@@ -333,10 +317,10 @@ details.semester .card .card-date {
 
             <div class="card-actions {% if has_pdf == false %}single{% endif %}">
               {% if has_pdf %}
-              <button class="pill-button" onclick="openFile('{{ l.pdf }}')">Print</button>
+              <button class="pill-button" type="button" onclick="openFile('{{ l.pdf }}')">Print</button>
               {% endif %}
               {% if has_audio %}
-              <button class="pill-button" onclick="handleListen('audio-cur-{{ forloop.index }}', this)">Listen</button>
+              <button class="pill-button" type="button" onclick="handleListen('audio-cur-{{ forloop.index }}', this)">Listen</button>
               {% endif %}
             </div>
           </article>
@@ -344,13 +328,11 @@ details.semester .card .card-date {
         </section>
       </div>
     </details>
-    
 
   </main>
 
   <!-- FULL-WIDTH FOOTER -->
   <img src="/assets/img/footer.jpg?v=2" alt="" class="site-footer">
-
 
   <script>
     function stopAllAudio() {
